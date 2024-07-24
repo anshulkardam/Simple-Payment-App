@@ -1,7 +1,7 @@
 const express = require("express")
-const { signupSchema, signinSchema } = require("../types")
+const { signupSchema, signinSchema, updateSchema } = require("../types")
 const jwt = require("jsonwebtoken")
-const { User } = require("../db")
+const { User, Account } = require("../db")
 const { default: JWT_secret } = require("../config")
 const { authMiddleware } = require("../middleware")
 
@@ -31,6 +31,10 @@ router.post("/signup", async function (req, res) {
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName
+    })
+    await Account.create({
+        userId : newuser._id,
+        balance : 1 + Math.random() * 10000
     })
     const userId = newuser._id
     const token = jwt.sign({ userId }, JWT_secret)
@@ -70,10 +74,49 @@ router.post("/signin", async function (req, res) {
     }
     
 })
-router.put("/", function(req,res,next) {
+router.put("/", authMiddleware, async function(req,res,next) {
 
-    
+    const PayLoad = req.body;
+    const parsedPayLoad = updateSchema.safeParse(PayLoad)
+    if(!parsedPayLoad.success){
+        return res.status(411).json({
+            message: "Error while updating information"
+        })
+    }
+    await User.updateOne({_id: req.userId} , req.body)
 
+    res.json({
+        message: "Updated successfully"
+    })
+
+})
+
+router.get("/bulk", async (req,res,next) => {
+
+        const filter = req.query.filter || "" ;
+        const users = await User.find({
+
+            $or : [{
+                firstName: {
+                    $regex : filter
+                }
+            },{
+                lastName: {
+                    $regex : filter
+                }
+
+            }]
+        })
+
+        res.json({
+            user: users.map(user => ({
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                _id: user._id
+
+            }))
+        })
 })
 
 module.exports = router
