@@ -1,11 +1,12 @@
 const express = require("express")
+const router = express.Router()
 const { signupSchema, signinSchema, updateSchema } = require("../types")
 const jwt = require("jsonwebtoken")
 const { User, Account } = require("../db")
-const { default: JWT_secret } = require("../config")
-const { authMiddleware } = require("../middleware")
 
-const router = express.Router()
+const { authMiddleware } = require("../authMiddleware")
+const { JWT_secret } = require("../config")
+
 
 router.post("/signup", async function (req, res) {
 
@@ -74,7 +75,7 @@ router.post("/signin", async function (req, res) {
     }
     
 })
-router.put("/", authMiddleware, async function(req,res,next) {
+router.put("/", authMiddleware, async function(req,res) {
 
     const PayLoad = req.body;
     const parsedPayLoad = updateSchema.safeParse(PayLoad)
@@ -91,7 +92,7 @@ router.put("/", authMiddleware, async function(req,res,next) {
 
 })
 
-router.get("/bulk", async (req,res,next) => {
+router.get("/bulk", async (req,res) => {
 
         const filter = req.query.filter || "" ;
         const users = await User.find({

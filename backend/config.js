@@ -1,3 +1,5 @@
 const JWT_secret = "karzemo"
 
-export default JWT_secret
+module.exports = {
+    JWT_secret
+} 
