@@ -28,14 +28,14 @@ export function Users() {
 
 function User({ users }) {
     const navigate = useNavigate()
-    return <div className="ml-8 mt-4">
-        <div className="flex justify-between">
+    return <div className="ml-8 mt-5">
+        <div className="flex justify-between mt-0">
             <div className="flex">
-                <div className=" w-10 h-10 rounded-full bg-slate-300 items-center flex justify-center">{users.firstName[0].toUpperCase()}</div>
+                <div className=" w-10 h-10 rounded-full bg-slate-300 items-center font-medium flex justify-center">{users.firstName[0].toUpperCase()}</div>
                 <div className="font-medium text-lg ml-4 mt-1 ">{users.firstName}</div>
                 <div className="font-medium text-lg ml-1 mt-1 ">{users.lastName}</div>
             </div>
-            <button onClick={() => navigate("/send?name=" + users.firstName + "&id=" + users._id)} type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Send Money</button>
+            <button onClick={() => navigate("/send?name=" + users.firstName + "&last=" + users.lastName + "&id=" + users._id)} type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-1 me-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Send Money</button>
         </div>
     </div>
 

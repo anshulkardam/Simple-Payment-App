@@ -6,6 +6,7 @@ export const SendMoney = () => {
 
     const [searchParams] = useSearchParams()
     const name = searchParams.get('name')
+    const last = searchParams.get('last')
     const id = searchParams.get('id')
     const [amount, setAmount] = useState(0)
      
@@ -14,9 +15,10 @@ export const SendMoney = () => {
             <div className="bg-white w-96 h-max rounded-lg shadow-lg p-6">
                 <Heading label={"Send Money"} />
                 <div className="pt-16">
-                    <div className="flex items-center space-x-2">
-                        <div className=" w-10 h-10 bg-green-400 rounded-full flex items-center justify-center">{name[0].toUpperCase()}</div>
-                        <div className="font-bold text-xl">{name}</div>
+                    <div className="flex items-center space-x-1">
+                        <div className=" w-10 h-10 bg-green-400 rounded-full flex items-center justify-center font-medium text-lg">{name[0].toUpperCase()}</div>
+                        <div className="font-bold pl-2 mt-0 text-xl">{name}</div>
+                        <div className="font-bold mt-0 text-xl">{last}</div>
                     </div>
                    
                     <div className="font-medium text-sm pt-4">Amount(in Rs)</div>
