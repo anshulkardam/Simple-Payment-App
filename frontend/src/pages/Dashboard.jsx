@@ -6,6 +6,7 @@ export const Dashboard = () => {
 
     return  <div>
         <Appbar />
+        
         <Balance />
         <Users />
         </div>
