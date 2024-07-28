@@ -1,11 +1,32 @@
 
 # A basic version of PayTM
- Buglist to solve - 
- ## Backend
- - user should not be allowed to update the username. right now its getting updated even tho its not in the zod schema
- - transferring money should allowed by id and username both as they both should be unique
- - Get User Data should only be for signed in users
- - /me endpoint for redirecting the users
- ## Frontend
- - Signed in User should not see themselves in the dashboard user list
- - Redirect logged in users to Dashboard 
+### Features:
+
+- User Sign-Up: Create a new account with basic information.
+- User Sign-In: Secure login for existing users.
+- Send Money: Transfer funds to other users easily.
+- Dashboard:
+    - View current balance.
+    - Access a list of all users.
+### Technologies Used:
+
+- Frontend: [e.g., React, Tailwind CSS]
+- Backend: [e.g., Node.js, Express]
+- Database: [e.g., MongoDB]
+### Setup Instructions:
+
+- Clone the repository: git clone [repository_url]
+- Install dependencies: npm install
+- Start the server: npm start
+### Future Improvements:
+
+#### Add transaction history.
+- Implement notifications for successful transactions.
+- Enhance security measures.
+- /me endpoint for redirecting the users
+- Redirect logged in users to Dashboard 
+Contributions:
+
+- Contributions are welcome! Please open an issue or submit a pull request. 
+
+ 

@@ -9,7 +9,11 @@ export function Users() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/user/bulk?filter=" + filter)
+        axios.get("http://localhost:3000/api/v1/user/bulk?filter=" + filter , {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(response => {
                 setUsers(response.data.user)
             })
@@ -27,10 +31,11 @@ export function Users() {
 }
 
 function User({ users }) {
+    
     const navigate = useNavigate()
-    return <div className="ml-8 mt-5">
+    return <div  className="ml-8 mt-5">
         <div className="flex justify-between mt-0">
-            <div className="flex">
+            <div  className="flex">
                 <div className=" w-10 h-10 rounded-full bg-slate-300 items-center font-medium flex justify-center">{users.firstName[0].toUpperCase()}</div>
                 <div className="font-medium text-lg ml-4 mt-1 ">{users.firstName}</div>
                 <div className="font-medium text-lg ml-1 mt-1 ">{users.lastName}</div>

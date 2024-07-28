@@ -35,7 +35,7 @@ router.post("/signup", async function (req, res) {
     })
     await Account.create({
         userId : newuser._id,
-        balance : 1 + Math.random() * 10000
+        balance : parseFloat((1 + Math.random() * 10000).toFixed(2))
     })
     const userId = newuser._id
     const token = jwt.sign({ userId }, JWT_secret)
@@ -78,12 +78,18 @@ router.post("/signin", async function (req, res) {
 router.put("/", authMiddleware, async function(req,res) {
 
     const PayLoad = req.body;
+    if(PayLoad.username){
+        return res.status(411).json({
+            message: "username cant be changed"
+        })
+    }
     const parsedPayLoad = updateSchema.safeParse(PayLoad)
     if(!parsedPayLoad.success){
         return res.status(411).json({
             message: "Error while updating information"
         })
     }
+    console.log(PayLoad.username)
     await User.updateOne({_id: req.userId} , req.body)
 
     res.json({
@@ -92,7 +98,7 @@ router.put("/", authMiddleware, async function(req,res) {
 
 })
 
-router.get("/bulk", async (req,res) => {
+router.get("/bulk", authMiddleware, async (req,res) => {
 
         const filter = req.query.filter || "" ;
         const users = await User.find({
@@ -108,7 +114,9 @@ router.get("/bulk", async (req,res) => {
 
             }]
         })
-
+        const to = await User.findOne({
+            _id: req.userId
+        })
         res.json({
             user: users.map(user => ({
                 username: user.username,
@@ -116,7 +124,8 @@ router.get("/bulk", async (req,res) => {
                 lastName: user.lastName,
                 _id: user._id
 
-            }))
+            })).filter(value => value._id.toString() !== to._id.toString())
+            
         })
 })
 
