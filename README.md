@@ -1,5 +1,5 @@
 
-# A basic version of PayTM
+# A Simple Payment App
 ### Features:
 
 - User Sign-Up: Create a new account with basic information.
@@ -20,12 +20,12 @@
 - Start the server: npm start
 ### Future Improvements:
 
-#### Add transaction history.
-- Implement notifications for successful transactions.
-- Enhance security measures.
+- Add transaction history.
+- Implement notifications.
 - /me endpoint for redirecting the users
 - Redirect logged in users to Dashboard 
-Contributions:
+
+### Contributions:
 
 - Contributions are welcome! Please open an issue or submit a pull request. 
 
